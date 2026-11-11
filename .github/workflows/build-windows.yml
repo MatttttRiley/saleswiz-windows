@@ -20,6 +20,11 @@ jobs:
         with:
           dotnet-version: '8.0.x'
 
+      # global.json at the repo root pins the SDK to 8.0.x; this step proves
+      # in the log that the pin took effect before restore/publish run.
+      - name: Check SDK version
+        run: dotnet --version
+
       - name: Restore
         run: dotnet restore SalesWiZ.sln
 
