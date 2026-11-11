@@ -3,7 +3,7 @@ using System.Text;
 
 namespace SalesWiZ;
 
-public sealed class ApiException : Exception
+public class ApiException : Exception
 {
     public ApiException(string message) : base(message) { }
 }
