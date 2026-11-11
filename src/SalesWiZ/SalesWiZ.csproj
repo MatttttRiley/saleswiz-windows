@@ -9,6 +9,16 @@
     <Platforms>x64</Platforms>
     <RuntimeIdentifiers>win-x64</RuntimeIdentifiers>
     <UseWinUI>true</UseWinUI>
+    <!-- GitHub-hosted runners have no Visual Studio AppxPackage MSBuild
+         tooling, so the WindowsAppSDK PRI generation fails with MSB4062
+         (ExpandPriContent cannot load Microsoft.Build.Packaging.Pri.Tasks
+         from the .NET SDK folder). Enabling the MSIX tooling makes PRI
+         generation use the tasks shipped inside the WindowsAppSDK NuGet
+         package itself (tools/net6.0/Microsoft.Build.Msix.dll) instead.
+         This does NOT produce an MSIX: packaging only happens with
+         /p:GenerateAppxPackageOnBuild=true, which we don't pass, and
+         WindowsPackageType stays None (unpackaged exe folder). -->
+    <EnableMsixTooling>true</EnableMsixTooling>
     <!-- Unpackaged desktop app: no MSIX, the Windows App Runtime ships
          alongside the exe (self-contained), so the user just runs it. -->
     <WindowsPackageType>None</WindowsPackageType>
