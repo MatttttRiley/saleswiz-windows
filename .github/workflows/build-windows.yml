@@ -1,0 +1,48 @@
+name: Build Windows app
+
+# Builds the SalesWiZ native Windows app (WinUI 3 / Windows App SDK) with NO
+# code signing and packages the unpackaged, self-contained exe folder as a
+# zip. The user unzips it on their PC and runs SalesWiZ.exe — no install
+# step, no certificate, no Store. (An MSIX would need a signing cert.)
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Install Windows workload
+        run: dotnet workload install windows
+
+      - name: Restore
+        run: dotnet restore SalesWiZ.sln
+
+      - name: Publish (self-contained, unpackaged)
+        run: |
+          dotnet publish src/SalesWiZ/SalesWiZ.csproj `
+            -c Release -r win-x64 --self-contained `
+            -o publish
+
+      - name: Check the exe exists
+        run: |
+          if (-not (Test-Path "publish\SalesWiZ.exe")) { Write-Error "SalesWiZ.exe not found"; exit 1 }
+          Get-ChildItem publish | Select-Object Name, Length | Format-Table | Out-String | Write-Host
+
+      - name: Zip the app
+        run: Compress-Archive -Path publish\* -DestinationPath SalesWiZ-windows.zip
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: SalesWiZ-windows
+          path: SalesWiZ-windows.zip
+          if-no-files-found: error
