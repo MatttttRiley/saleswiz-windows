@@ -105,3 +105,4 @@ src/SalesWiZ/
   claimed to work on Matt's PC until he runs the exe.
 - **MSIX**: not built — it needs a signing certificate. The zip + exe is
   the unsigned route for now.
+
