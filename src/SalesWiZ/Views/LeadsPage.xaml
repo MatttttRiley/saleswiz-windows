@@ -1,0 +1,78 @@
+<Page
+    x:Class="SalesWiZ.Views.LeadsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:SalesWiZ.Views"
+    xmlns:core="using:SalesWiZ">
+
+    <Grid Padding="24">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Horizontal" Spacing="12">
+            <TextBlock Text="Leads" FontSize="28" FontWeight="SemiBold" VerticalAlignment="Center" />
+            <TextBox x:Name="SearchBox" Width="280" PlaceholderText="Search name, city, email, phone…"
+                     KeyDown="SearchBox_KeyDown" VerticalAlignment="Center" />
+            <Button Content="Search" Click="SearchButton_Click" VerticalAlignment="Center" />
+            <Button Content="Add lead" Style="{StaticResource AccentButtonStyle}"
+                    Click="AddLeadButton_Click" VerticalAlignment="Center" />
+            <Button Content="Refresh" Click="RefreshButton_Click" VerticalAlignment="Center" />
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" Orientation="Horizontal" Spacing="12" Margin="0,12,0,0">
+            <ComboBox x:Name="IndustryFilter" Width="180" PlaceholderText="All industries"
+                      SelectionChanged="Filter_SelectionChanged" />
+            <ComboBox x:Name="StatusFilter" Width="180" PlaceholderText="All statuses"
+                      SelectionChanged="Filter_SelectionChanged" />
+            <TextBlock x:Name="CountText" VerticalAlignment="Center"
+                       Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+        </StackPanel>
+
+        <ListView x:Name="LeadsList" Grid.Row="2" Margin="0,12,0,0"
+                  SelectionMode="None" IsItemClickEnabled="True" ItemClick="LeadsList_ItemClick">
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="core:Lead">
+                    <Grid Padding="8,6" ColumnSpacing="12">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <Border Width="36" Height="36" CornerRadius="18"
+                                Background="{ThemeResource AccentFillColorDefaultBrush}">
+                            <TextBlock Text="{x:Bind local:LeadsPage.Initial(Industry)}"
+                                       Foreground="White" FontWeight="SemiBold"
+                                       HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                        <StackPanel Grid.Column="1" Spacing="2">
+                            <TextBlock Text="{x:Bind Name}" FontWeight="SemiBold" />
+                            <TextBlock Text="{x:Bind DisplayCity}"
+                                       Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+                            <TextBlock Text="{x:Bind Email}"
+                                       Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                       FontSize="12" />
+                        </StackPanel>
+                        <Border Grid.Column="2" CornerRadius="10" Padding="8,3"
+                                Background="{x:Bind local:LeadsPage.StatusBrush(Status)}"
+                                VerticalAlignment="Center">
+                            <TextBlock Text="{x:Bind local:LeadsPage.StatusLabel(Status)}"
+                                       Foreground="White" FontSize="12" FontWeight="SemiBold" />
+                        </Border>
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <StackPanel Grid.Row="3" Orientation="Horizontal" Spacing="12" Margin="0,12,0,0">
+            <Button x:Name="LoadMoreButton" Content="Load more" Click="LoadMoreButton_Click" />
+            <ProgressRing x:Name="BusyRing" IsActive="False" Visibility="Collapsed"
+                          Width="24" Height="24" />
+            <TextBlock x:Name="ErrorText" Foreground="Red" VerticalAlignment="Center"
+                       TextWrapping="Wrap" Visibility="Collapsed" />
+        </StackPanel>
+    </Grid>
+</Page>

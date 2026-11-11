@@ -1,0 +1,24 @@
+<ContentDialog
+    x:Class="SalesWiZ.Views.ReplyDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="Reply"
+    PrimaryButtonText="Queue"
+    CloseButtonText="Cancel"
+    DefaultButton="Primary"
+    PrimaryButtonClick="ReplyDialog_PrimaryButtonClick">
+    <StackPanel Spacing="12" MinWidth="420">
+        <TextBox x:Name="ToBox" Header="To" IsReadOnly="True" />
+        <TextBox x:Name="SubjectBox" Header="Subject" />
+        <TextBox x:Name="BodyBox" Header="Message" AcceptsReturn="True"
+                 TextWrapping="Wrap" MinHeight="140" />
+        <TextBlock Text="Quoted original" FontWeight="SemiBold" />
+        <ScrollViewer MaxHeight="140" VerticalScrollBarVisibility="Auto">
+            <TextBlock x:Name="QuotedText" TextWrapping="Wrap"
+                       Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+        </ScrollViewer>
+        <TextBlock Text="Queued mail is sent only after you approve the send."
+                   FontSize="12" Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+        <TextBlock x:Name="ErrorText" Foreground="Red" TextWrapping="Wrap" Visibility="Collapsed" />
+    </StackPanel>
+</ContentDialog>

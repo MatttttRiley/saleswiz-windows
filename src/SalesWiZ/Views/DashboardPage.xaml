@@ -1,0 +1,224 @@
+<Page
+    x:Class="SalesWiZ.Views.DashboardPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:SalesWiZ.Views">
+
+    <Grid>
+        <ScrollViewer x:Name="ContentScroll" Padding="24" Visibility="Collapsed">
+            <StackPanel Spacing="20" MaxWidth="860" HorizontalAlignment="Stretch">
+                <StackPanel Orientation="Horizontal" Spacing="12">
+                    <TextBlock Text="Dashboard" FontSize="28" FontWeight="SemiBold" />
+                    <Button x:Name="RefreshButton" Content="Refresh" Click="RefreshButton_Click"
+                            VerticalAlignment="Center" />
+                </StackPanel>
+
+                <!-- Time to first sale -->
+                <Border Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                        BorderThickness="1" CornerRadius="8" Padding="16">
+                    <StackPanel Spacing="8">
+                        <TextBlock Text="Time to first sale" FontSize="16" FontWeight="SemiBold" />
+                        <ProgressBar x:Name="ProgressBar" Minimum="0" Maximum="100" Height="10" />
+                        <TextBlock x:Name="ProgressText" FontSize="13"
+                                   Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+                        <TextBlock x:Name="EtaHeadline" FontSize="18" FontWeight="SemiBold" />
+                        <TextBlock x:Name="EtaLikely" FontSize="13"
+                                   Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+                        <TextBlock x:Name="EtaPaths" FontSize="12"
+                                   Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+                        <TextBlock x:Name="StallWarning" FontSize="12" Foreground="Orange"
+                                   TextWrapping="Wrap" Visibility="Collapsed"
+                                   Text="No replies after 200+ delivered — the pitch or targeting needs a look." />
+                    </StackPanel>
+                </Border>
+
+                <!-- Funnel -->
+                <Border Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                        BorderThickness="1" CornerRadius="8" Padding="16">
+                    <StackPanel Spacing="12">
+                        <TextBlock Text="Funnel" FontSize="16" FontWeight="SemiBold" />
+                        <Grid ColumnSpacing="12" RowSpacing="12">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <!-- Row 1 -->
+                            <StackPanel Grid.Row="0" Grid.Column="0">
+                                <TextBlock x:Name="LeadsValue" FontSize="24" FontWeight="Bold" />
+                                <TextBlock Text="Leads" Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+                            </StackPanel>
+                            <StackPanel Grid.Row="0" Grid.Column="1">
+                                <TextBlock x:Name="SentValue" FontSize="24" FontWeight="Bold" />
+                                <TextBlock Text="Sent" Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+                            </StackPanel>
+                            <StackPanel Grid.Row="0" Grid.Column="2">
+                                <TextBlock x:Name="DeliveredValue" FontSize="24" FontWeight="Bold" />
+                                <TextBlock Text="Delivered" Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+                            </StackPanel>
+                            <!-- Row 2 -->
+                            <StackPanel Grid.Row="1" Grid.Column="0">
+                                <TextBlock x:Name="RepliesValue" FontSize="24" FontWeight="Bold" />
+                                <TextBlock Text="Replies" Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+                            </StackPanel>
+                            <StackPanel Grid.Row="1" Grid.Column="1">
+                                <TextBlock x:Name="InterestedValue" FontSize="24" FontWeight="Bold" />
+                                <TextBlock Text="Interested" Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+                            </StackPanel>
+                            <StackPanel Grid.Row="1" Grid.Column="2">
+                                <TextBlock x:Name="DemosValue" FontSize="24" FontWeight="Bold" />
+                                <TextBlock Text="Demos" Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+                            </StackPanel>
+                            <!-- Row 3 -->
+                            <StackPanel Grid.Row="2" Grid.Column="0">
+                                <TextBlock x:Name="CustomersValue" FontSize="24" FontWeight="Bold" />
+                                <TextBlock Text="Customers" Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+                            </StackPanel>
+                            <StackPanel Grid.Row="2" Grid.Column="1">
+                                <TextBlock x:Name="BouncedValue" FontSize="24" FontWeight="Bold" />
+                                <TextBlock Text="Bounced" Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+                            </StackPanel>
+                            <StackPanel Grid.Row="2" Grid.Column="2">
+                                <TextBlock x:Name="NotContactedValue" FontSize="24" FontWeight="Bold" />
+                                <TextBlock Text="Not contacted" Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+                            </StackPanel>
+                        </Grid>
+                    </StackPanel>
+                </Border>
+
+                <!-- Money -->
+                <Border Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                        BorderThickness="1" CornerRadius="8" Padding="16">
+                    <StackPanel Spacing="8">
+                        <TextBlock Text="Money" FontSize="16" FontWeight="SemiBold" />
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="Setup collected" />
+                            <TextBlock x:Name="SetupCollectedValue" Grid.Column="1" FontWeight="SemiBold" />
+                        </Grid>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="Monthly recurring" />
+                            <TextBlock x:Name="MrrValue" Grid.Column="1" FontWeight="SemiBold" />
+                        </Grid>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="Price" />
+                            <TextBlock x:Name="PriceValue" Grid.Column="1"
+                                       Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+                        </Grid>
+                    </StackPanel>
+                </Border>
+
+                <!-- Today -->
+                <Border Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                        BorderThickness="1" CornerRadius="8" Padding="16">
+                    <StackPanel Spacing="8">
+                        <TextBlock Text="Today" FontSize="16" FontWeight="SemiBold" />
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="Calls left" />
+                            <TextBlock x:Name="CallsLeftValue" Grid.Column="1" FontWeight="SemiBold" />
+                        </Grid>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="Follow-ups due" />
+                            <TextBlock x:Name="FollowupsDueValue" Grid.Column="1" FontWeight="SemiBold" />
+                        </Grid>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="In call queue" />
+                            <TextBlock x:Name="InCallQueueValue" Grid.Column="1" FontWeight="SemiBold" />
+                        </Grid>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="Email leads left" />
+                            <TextBlock x:Name="RemainingEmailValue" Grid.Column="1" FontWeight="SemiBold" />
+                        </Grid>
+                    </StackPanel>
+                </Border>
+
+                <!-- By industry -->
+                <Border x:Name="ByIndustryCard"
+                        Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                        BorderThickness="1" CornerRadius="8" Padding="16">
+                    <StackPanel Spacing="8">
+                        <TextBlock Text="By industry" FontSize="16" FontWeight="SemiBold" />
+                        <ListView x:Name="ByIndustryList" SelectionMode="None" IsItemClickEnabled="False">
+                            <ListView.ItemTemplate>
+                                <DataTemplate x:DataType="local:IndustryRow">
+                                    <Grid Padding="0,4">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <Border Width="28" Height="28" CornerRadius="14"
+                                                Background="{ThemeResource AccentFillColorDefaultBrush}">
+                                            <TextBlock Text="{x:Bind Initial}" Foreground="White"
+                                                       FontWeight="SemiBold" HorizontalAlignment="Center"
+                                                       VerticalAlignment="Center" />
+                                        </Border>
+                                        <TextBlock Grid.Column="1" Text="{x:Bind Label}" Margin="12,0,0,0"
+                                                   VerticalAlignment="Center" />
+                                        <TextBlock Grid.Column="2" Text="{x:Bind Detail}"
+                                                   Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                                   VerticalAlignment="Center" />
+                                    </Grid>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </StackPanel>
+                </Border>
+
+                <Button Content="Sign Out" Click="SignOutButton_Click" HorizontalAlignment="Left" />
+            </StackPanel>
+        </ScrollViewer>
+
+        <StackPanel x:Name="LoadingPanel" VerticalAlignment="Center" HorizontalAlignment="Center" Spacing="12">
+            <ProgressRing IsActive="True" Width="40" Height="40" HorizontalAlignment="Center" />
+            <TextBlock Text="Loading…" HorizontalAlignment="Center" />
+        </StackPanel>
+
+        <StackPanel x:Name="ErrorPanel" Visibility="Collapsed" VerticalAlignment="Center"
+                    HorizontalAlignment="Center" Spacing="12" MaxWidth="400">
+            <TextBlock Text="Couldn't load the dashboard" FontSize="18" FontWeight="SemiBold"
+                       HorizontalAlignment="Center" />
+            <TextBlock x:Name="ErrorText" TextWrapping="Wrap" HorizontalAlignment="Center"
+                       Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+            <Button Content="Try Again" Style="{StaticResource AccentButtonStyle}"
+                    HorizontalAlignment="Center" Click="RefreshButton_Click" />
+        </StackPanel>
+    </Grid>
+</Page>

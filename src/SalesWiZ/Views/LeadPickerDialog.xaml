@@ -1,0 +1,33 @@
+<ContentDialog
+    x:Class="SalesWiZ.Views.LeadPickerDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:core="using:SalesWiZ"
+    Title="Choose a lead"
+    PrimaryButtonText="Choose lead"
+    CloseButtonText="Cancel"
+    DefaultButton="Primary">
+    <StackPanel Spacing="12" MinWidth="420">
+        <StackPanel Orientation="Horizontal" Spacing="8">
+            <TextBox x:Name="SearchBox" Width="280" PlaceholderText="Search leads…"
+                     KeyDown="SearchBox_KeyDown" />
+            <Button Content="Search" Click="SearchButton_Click" />
+        </StackPanel>
+        <ListView x:Name="LeadsList" MaxHeight="360" SelectionMode="Single"
+                  SelectionChanged="LeadsList_SelectionChanged">
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="core:Lead">
+                    <StackPanel Padding="0,4" Spacing="2">
+                        <TextBlock Text="{x:Bind Name}" FontWeight="SemiBold" />
+                        <TextBlock Text="{x:Bind DisplayCity}"
+                                   Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+                        <TextBlock Text="{x:Bind Email}"
+                                   Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                   FontSize="12" />
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <TextBlock x:Name="ErrorText" Foreground="Red" TextWrapping="Wrap" Visibility="Collapsed" />
+    </StackPanel>
+</ContentDialog>
