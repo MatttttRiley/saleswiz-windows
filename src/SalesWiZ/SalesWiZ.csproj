@@ -36,7 +36,19 @@
     <PackageReference Include="System.Security.Cryptography.ProtectedData" Version="8.0.0" />
   </ItemGroup>
 
-  <ItemGroup>
+  <!-- The package manifest is only an AppxManifest item for packaged
+       builds. Microsoft.Build.Msix.Packaging.targets errors out when
+       WindowsPackageType is None but an AppxManifest is specified
+       ("Improper project configuration: WindowsPackageType is set to
+       None, but a AppxManifest is specified"), and Microsoft Learn's
+       unpackaged-app instructions say to delete the manifest from the
+       project for the same reason. Unpackaged apps have no package
+       identity, so the manifest's identity/capabilities/tile entries
+       do not apply at runtime anyway. The file stays on disk (and in
+       the repo) so a future packaged build just works: this condition
+       re-includes it automatically if WindowsPackageType is ever
+       changed away from None. -->
+  <ItemGroup Condition="'$(WindowsPackageType)' != 'None'">
     <AppxManifest Include="Package.appxmanifest" />
   </ItemGroup>
 </Project>
