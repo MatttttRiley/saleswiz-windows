@@ -20,9 +20,6 @@ jobs:
         with:
           dotnet-version: '8.0.x'
 
-      - name: Install Windows workload
-        run: dotnet workload install windows
-
       - name: Restore
         run: dotnet restore SalesWiZ.sln
 
